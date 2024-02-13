@@ -1,0 +1,37 @@
+type PokemonBaseStats {
+  hp: Int
+  attack: Int
+  defense: Int
+  speed: Int
+}
+
+type Pokemon {
+  id: Int!
+  name: String!
+  type: [String]!
+  baseStats: PokemonBaseStats
+}
+
+input PokemonBaseStatsInput {
+  id: Int!  
+  hp: Int
+  attack: Int
+  defense: Int
+  speed: Int
+}
+
+type Query {
+  pokemon(id: Int!): Pokemon
+  pokemons: [Pokemon]
+
+}
+type Mutation {
+  addPokemon(name: String!, type: [String]!): Pokemon
+  addPokemonStats(input: PokemonBaseStatsInput!): Pokemon
+  deletePokemon(id: Int!): Pokemon
+}
+
+type Subscription {
+  pokemonAdded: Pokemon
+  pokemonDeleted: Pokemon
+}
