@@ -6,7 +6,7 @@ import { expressMiddleware } from '@apollo/server/express4';
 import resolvers from './resolvers.js';
 import { readFileSync } from 'fs';
 import cors from 'cors';
-import path from 'path';
+
 
 const ExpressConfig = (): Application => {
   const app = express();
@@ -30,7 +30,8 @@ await server.start();
 
 app.use('/graphql', cors(), json(), expressMiddleware(server));
 
+app.get('/health', (req, res) => res.json({ message: 'Hello from express server' }));
 
-app.listen(3000, () => {
-  console.log('Server is running on port 3000');
+app.listen(Number(process.env.PORT) ?? 3000,() => {
+  console.log('Server is running on port', process.env.PORT ?? 3000);
 });
